@@ -15,6 +15,10 @@ COPY . .
 # Instalar as dependências do Python (incluindo psycopg2)
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
+# Se preferir instalar diretamente o psycopg2 via pip (caso não esteja no requirements.txt)
+RUN pip install psycopg2-binary
+
 # Comando para rodar sua aplicação
 CMD ["python", "projeto_nf/manage.py", "runserver", "0.0.0.0:8000"]
+
 

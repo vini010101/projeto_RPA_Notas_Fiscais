@@ -42,4 +42,38 @@ form button {
 
 form button:hover {
     background-color: #7b817c;
+
+}
+
+/* Estilizando o botão */
+#botao-usuario {
+    background-color: #474b47; /* Cor de fundo verde */
+    border: none; /* Remover borda */
+    color: white; /* Cor do texto */
+    padding: 15px 32px; /* Espaçamento interno */
+    text-align: center; /* Alinhar o texto no centro */
+    text-decoration: none; /* Remover o sublinhado do link */
+    display: inline-block; /* Para o link comportar-se como um botão */
+    font-size: 16px; /* Tamanho da fonte */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Efeito suave de transição de cor */
+}
+
+/* Estilo quando o botão é pressionado */
+#botao-usuario:active {
+    background-color: #474b47; /* Cor mais escura quando clicado */
+}
+
+/* Estilo quando o link dentro do botão é pressionado */
+#botao-usuario a {
+    color: white; /* Cor do texto do link */
+    text-decoration: none; /* Remover sublinhado do link */
+    display: block; /* Para o link ocupar todo o espaço do botão */
+    width: 100%; /* Garantir que o link ocupe toda a largura */
+}
+
+/* Efeito de hover */
+#botao-usuario:hover {
+    background-color: #474b47; /* Cor mais escura quando o mouse passa por cima */
 }

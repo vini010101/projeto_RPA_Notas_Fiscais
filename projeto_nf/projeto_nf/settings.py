@@ -56,7 +56,7 @@ ROOT_URLCONF = 'projeto_nf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,6 +116,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+STATIC_URL = '/static'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 # Static files (CSS, JavaScript, Images)

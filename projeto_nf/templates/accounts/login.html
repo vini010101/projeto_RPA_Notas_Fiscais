@@ -1,0 +1,22 @@
+<!-- accounts/templates/accounts/login.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="POST" action="/login/">
+            <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+            <a>aaaaaa</a>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar notas ficais</title>
+    <title>Página Inicial</title>
 </head>
 <body>
+    <h1>Bem-vindo à Página Inicial!</h1>
     
+    
+
+    <h2>Consultar CPF ou CNPJ</h2>
+    <form method="GET" action="{% url 'consultar_cpf_cnpj' %}">
+        <input type="text" name="cpf_cnpj" placeholder="Digite o CPF ou CNPJ" required>
+        <button type="submit">Consultar</button>
+    </form>
+
+    <h2>Consultar Descrição do Produto</h2>
+    <form method="GET" action="{% url 'consultar_produto' %}">
+        <input type="text" name="descricao_produto" placeholder="Digite a descrição do produto" required>
+        <button type="submit">Consultar</button>
+    </form>
 </body>
 </html>

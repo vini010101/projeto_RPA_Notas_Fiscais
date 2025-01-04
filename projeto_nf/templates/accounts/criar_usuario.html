@@ -10,7 +10,8 @@
 <body>
     <div class="login-container">
         <h2>Criar usuario</h2>
-        <form method="POST" action="/login/">
+        <form method="POST" action="{%url 'criar_usuario'%}">
+            {% csrf_token %}
             <input type="text" name="username" placeholder="Digite aqui o seu usuário" required>
             <input type="password" name="password" placeholder="Digite aqui a sua senha" required>
             <button type="submit">Criar usuario</button>

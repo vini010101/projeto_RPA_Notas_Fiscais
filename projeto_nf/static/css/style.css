@@ -1,79 +1,96 @@
-/* static/css/style.css */
+/* Estilo global para o corpo da página */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f2f2f2;
     margin: 0;
+    padding: 0;
 }
 
+/* Container de login centralizado */
 .login-container {
-    background-color: white;
-    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo para o título */
 h2 {
     text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
+/* Estilo para as mensagens de erro */
+.messages {
+    margin-bottom: 15px;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Estilo dos campos de entrada */
+.form-group {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;  /* Inclui o padding e a borda dentro do tamanho total */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #6f756f;
+    outline: none;
+}
+
+/* Estilo para o botão de envio */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6f756f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6f756f;
+}
+
+/* Estilo para o link de criação de usuário */
+a#botao-usuario {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a#botao-usuario:hover {
+    text-decoration: underline;
+}
+
+/* Adiciona um estilo geral ao formulário */
 form {
     display: flex;
     flex-direction: column;
-}
-
-form input, form button {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-form button {
-    background-color: #474b47;
-    color: white;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #7b817c;
-
-}
-
-/* Estilizando o botão */
-#botao-usuario {
-    background-color: #474b47; /* Cor de fundo verde */
-    border: none; /* Remover borda */
-    color: white; /* Cor do texto */
-    padding: 15px 32px; /* Espaçamento interno */
-    text-align: center; /* Alinhar o texto no centro */
-    text-decoration: none; /* Remover o sublinhado do link */
-    display: inline-block; /* Para o link comportar-se como um botão */
-    font-size: 16px; /* Tamanho da fonte */
-    border-radius: 5px; /* Borda arredondada */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-    transition: background-color 0.3s ease; /* Efeito suave de transição de cor */
-}
-
-/* Estilo quando o botão é pressionado */
-#botao-usuario:active {
-    background-color: #474b47; /* Cor mais escura quando clicado */
-}
-
-/* Estilo quando o link dentro do botão é pressionado */
-#botao-usuario a {
-    color: white; /* Cor do texto do link */
-    text-decoration: none; /* Remover sublinhado do link */
-    display: block; /* Para o link ocupar todo o espaço do botão */
-    width: 100%; /* Garantir que o link ocupe toda a largura */
-}
-
-/* Efeito de hover */
-#botao-usuario:hover {
-    background-color: #474b47; /* Cor mais escura quando o mouse passa por cima */
 }

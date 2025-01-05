@@ -13,8 +13,15 @@
         <h2>Login</h2>
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
-            <input type="password" name="password" placeholder="Digite sua senha" required>
+            {% if messages %}
+         <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+             {% endfor %}
+                 </ul>
+                {% endif %}
+            <input type="text" name="nome_usuario" placeholder="Digite seu nome de usuário" required>
+            <input type="password" name="senha" placeholder="Digite sua senha" required>
             <button type="submit">Enviar</button>
             <a href="{% url 'criar_usuario' %}" id="botao-usuario">Criar Um Novo Usuário</a>
            

@@ -1,25 +1,22 @@
+<!-- accounts/templates/accounts/login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Bem-vindo à Página Inicial!</h1>
-    
-    
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="GET" action="{% url 'index' %}">
+            {% csrf_token %}
+            <h1>BEM VINDO</h1>
 
-    <h2>Consultar CPF ou CNPJ</h2>
-    <form method="GET" action="{% url 'consultar_cpf_cnpj' %}">
-        <input type="text" name="cpf_cnpj" placeholder="Digite o CPF ou CNPJ" required>
-        <button type="submit">Consultar</button>
-    </form>
 
-    <h2>Consultar Descrição do Produto</h2>
-    <form method="GET" action="{% url 'consultar_produto' %}">
-        <input type="text" name="descricao_produto" placeholder="Digite a descrição do produto" required>
-        <button type="submit">Consultar</button>
-    </form>
+        </form>
+    </div>
 </body>
 </html>

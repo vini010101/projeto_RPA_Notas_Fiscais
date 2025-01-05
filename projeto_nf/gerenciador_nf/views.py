@@ -1,67 +1,54 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .models import Usuarios
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 
-
-
-
-
-class LoginView(FormView):
-    template_name = 'accounts/login.html'  # Template de login
-    form_class = AuthenticationForm  # Formulário de autenticação
-    success_url = reverse_lazy('index')  # URL de redirecionamento após login bem-sucedido
-
-    def form_valid(self, form):
-        # Obter os dados do formulário
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        
-        # Buscar no banco de dados pelo usuário e senha
-        try:
-            usuario = Usuarios.objects.get(nome_usuario=username)
-            if usuario.senha == password:  # Comparando a senha
-                # Realiza o login do usuário manualmente (não usando authenticate)
-                self.request.session['usuario_id'] = usuario.id  # Você pode armazenar o ID do usuário na sessão
-                return redirect(self.success_url)  # Redireciona para a página de sucesso
-            else:
-                form.add_error(None, "Usuário ou senha incorretos.")  # Se a senha não bater
-        except Usuarios.DoesNotExist:
-            form.add_error(None, "Usuário ou senha incorretos.")  # Se o usuário não existir
-
-        return self.form_invalid(form)  # Retorna ao formulário com erro
-
-    def form_invalid(self, form):
-        # Exibe o formulário com os erros
-        return render(self.request, self.template_name, {'form': form})
-
-
-
-
-
-class CriarUsuarioView(FormView):
-    template_name = 'accounts/criar_usuario.html'  # Template de criação de usuário
-    form_class = UserCreationForm  # Formulário para criação de usuários
-    success_url = reverse_lazy('login')  # URL de redirecionamento após criação bem-sucedida
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            # O método `save()` já lida com a senha e a cria de forma segura
-            form.save()  # Salva o novo usuário no banco de dados
-            
-            messages.success(request, "Conta criada com sucesso! Faça login.")  # Mensagem de sucesso
-            return self.form_valid(form)  # Redireciona para o success_url
-        else:
-            messages.error(request, "Erro ao criar conta. Verifique os dados.")  # Mensagem de erro
-            return self.form_invalid(form)  # Renderiza novamente o formulário
-        
+# Função para criar um novo usuário
+def criar_usuario(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/criar_usuario.html')
     
-class PaginaPrincipalView(FormView):
-    template_name = 'index.html'
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        # Verifica se o nome de usuário já existe no banco
+        if User.objects.filter(username=username).exists():
+            return HttpResponse("Usuário já existe. Escolha outro nome de usuário.", status=400)
+        
+        try:
+            # Cria o usuário utilizando o método create_user (que faz o hash da senha)
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            return HttpResponse("Usuário criado com sucesso!", status=201)
+        except Exception as e:
+            return HttpResponse(f"Erro ao criar o usuário: {str(e)}", status=500)
+
+
+# Função para realizar o login do usuário
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/login.html')
+    
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Tenta autenticar o usuário
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Se o usuário for autenticado e estiver ativo, faz login
+            auth_login(request, user)
+            return redirect('index')  # Redireciona para a página principal
+        else:
+            # Se não for encontrado ou a senha estiver errada
+            messages.error(request, 'Credenciais inválidas. Tente novamente.')  # Mensagem de erro
+            return redirect('login')  # Redireciona para a página de login com erro
+
+
+# Função para renderizar a página principal
+def pagina_principal(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/index.html')

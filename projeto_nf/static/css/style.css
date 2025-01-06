@@ -124,3 +124,17 @@ input[type="password"]:focus {
     background-color: #003f7f; /* Azul ainda mais escuro */
     transform: scale(1);
 }
+
+
+/* Estilizando o botão de envio */
+/* Alterando a cor do botão para cinza */
+button.btn.btn-primary {
+    background-color: #6c757d; /* Cinza */
+    border-color: #6c757d; /* Cinza */
+    color: white; /* Texto branco */
+}
+
+button.btn.btn-primary:hover {
+    background-color: #5a6268; /* Cinza escuro ao passar o mouse */
+    border-color: #545b62; /* Cinza mais escuro ao passar o mouse */
+}

@@ -14,7 +14,7 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
             <h2 class="text-center mb-4">Cria um Novo Usuario</h2>
-            <form method="POST" action="{% url 'login' %}">
+            <form method="POST" action="{% url 'criar_usuario' %}">
                 {% csrf_token %}
 
                 {% if messages %}

@@ -1,10 +1,11 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from gerenciador_nf.models import NotaFiscal, UploadNotaFiscal
+from .models import NotaFiscal, UploadNotaFiscal
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from .processar_nota import processar_nota_fiscal
+import logging
 
 # Função para criar um novo usuário
 def criar_usuario(request):
@@ -17,15 +18,15 @@ def criar_usuario(request):
 
         # Verifica se o nome de usuário já existe no banco
         if User.objects.filter(username=username).exists():
-            return HttpResponse("Usuário já existe. Escolha outro nome de usuário.", status=400)
+            return messages.error("Usuário já existe. Escolha outro nome de usuário.")
         
         try:
             # Cria o usuário utilizando o método create_user (que faz o hash da senha)
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            return HttpResponse("Usuário criado com sucesso!", status=201)
+            return messages.success(f"Usuario criado com sucesso")
         except Exception as e:
-            return HttpResponse(f"Erro ao criar o usuário: {str(e)}", status=500)
+            return messages.error(f"Erro ao criar o usuário, Tente Novamente mais tarde")
 
 
 # Função para realizar o login do usuário
@@ -68,32 +69,53 @@ def deletar_notas(request):
         return render(request, 'accounts/deletar_notas.html')
     
 
+logger = logging.getLogger(__name__)
+
 def upload_notas(request):
-    if request.method == 'POST' and request.FILES.get('nota_fiscal'):
-        arquivo = request.FILES['nota_fiscal']
+    if request.method == 'POST':
+        # Caso o usuário tenha preenchido os dados manualmente
+        cpf_cnpj = request.POST.get('CPF_CNPJ')
+        valor_nota = request.POST.get('valor_nota')
+        data_nota = request.POST.get('data_nota')
+        descricao_produto = request.POST.get('descricao_produto')
+
+        # Caso o usuário tenha feito o upload do arquivo
+        arquivo = request.FILES.get('nota_fiscal')
+
+        if arquivo:
+            logger.debug(f"Arquivo de nota fiscal recebido: {arquivo.name}")
+            # Processamento do arquivo pode ser feito aqui (se necessário)
+            # Lembre-se de que você pode processar o arquivo e extrair os dados automaticamente mais tarde, se necessário.
+
+        # Verificar se os dados manuais foram preenchidos
+        if cpf_cnpj and valor_nota and data_nota and descricao_produto:
+            try:
+                # Criar uma nova Nota Fiscal no banco de dados com os dados manuais
+                nota_fiscal = NotaFiscal.objects.create(
+                    cpf_cnpj=cpf_cnpj,
+                    valor_nota=valor_nota,
+                    data_nota=data_nota,
+                    descricao_produto=descricao_produto,
+                    usuario=request.user  # Associando o usuário ao objeto
+                )
+                logger.debug(f"Nota fiscal criada com sucesso: {nota_fiscal}")
+
+                # Criar o upload da nota fiscal no banco de dados, se houver um arquivo
+                if arquivo:
+                    UploadNotaFiscal.objects.create(
+                        nota_fiscal=nota_fiscal,
+                        caminho_arquivo=arquivo.name
+                    )
+                    logger.debug(f"Upload da nota fiscal criado com sucesso")
+
+                return HttpResponse("Dados da nota fiscal cadastrados com sucesso", status=200)
+            
+            except Exception as e:
+                logger.error(f"Erro ao criar nota fiscal no banco: {str(e)}")
+                return HttpResponse(f"Erro ao criar nota fiscal: {str(e)}", status=500)
         
-        # Processar o arquivo de nota fiscal
-        dados_nota = processar_nota_fiscal(arquivo)
+        else:
+            return HttpResponse("Dados incompletos. Por favor, preencha todos os campos necessários.", status=400)
 
-        # Verificar se todos os campos foram extraídos corretamente
-        if dados_nota['cpf_cnpj'] and dados_nota['data_nota'] and dados_nota['valor_nota'] and dados_nota['descricao_produto']:
-            # Criar uma nova Nota Fiscal no banco de dados
-            nota_fiscal = NotaFiscal.objects.create(
-                cpf_cnpj=dados_nota['cpf_cnpj'],
-                valor_nota=dados_nota['valor_nota'],
-                data_nota=dados_nota['data_nota'],
-                descricao_produto=dados_nota['descricao_produto'],
-                usuario=request.user
-            )
-            
-            # Criar o upload da nota fiscal no banco de dados
-            UploadNotaFiscal.objects.create(
-                nota_fiscal=nota_fiscal,
-                caminho_arquivo=arquivo.name
-            )
-            
-            # Redirecionar para uma página de sucesso
-            return HttpResponse(f"arquivo enviado com sucesso", status=200)
-
-    # Renderiza a página de upload para GET ou se não houver arquivo
+    # Caso o método não seja POST, renderizar o formulário
     return render(request, 'accounts/upload_notas.html')

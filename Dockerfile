@@ -24,8 +24,9 @@ RUN apt-get update && apt-get install -y \
     libtesseract-dev \
     && rm -rf /var/lib/apt/lists/*
    
-RUN pip install pdf2image
 RUN apt-get update && apt-get install -y poppler-utils
+RUN pip install pandas
+RUN pip install openpyxl
 # Comando para rodar sua aplicação
 CMD ["python", "projeto_nf/manage.py", "runserver", "0.0.0.0:8000"]
 

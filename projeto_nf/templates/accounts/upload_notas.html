@@ -1,6 +1,51 @@
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label for="nota_fiscal">Selecione a Nota Fiscal:</label>
-    <input type="file" name="nota_fiscal" id="nota_fiscal" required>
-    <button type="submit">Fazer Upload</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Nota Fiscal</title>
+    <!-- Link do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Fazer Upload da Nota Fiscal</h2>
+        <form method="POST" enctype="multipart/form-data" class="shadow p-4 rounded border">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="campo-CFP/CNPJ" class="form-label">CPF ou CNPJ</label>
+                    <input type="text" id="campo-CPF/CNPJ" name="CPF-CNPJ" class="form-control" placeholder="Digite aqui o CPF ou CNPJ da Nota" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="campo-valor" class="form-label">Valor da Nota Fiscal</label>
+                    <input type="text" id="campo-valor" name="Valor-nota" class="form-control" placeholder="Digite aqui o Valor da Nota" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="campo-data" class="form-label">Data da Nota Fiscal</label>
+                    <input type="date" id="campo-data" name="data-nota" class="form-control" placeholder="Digite aqui a data da Nota Fiscal" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="campo-descricao" class="form-label">descrição do Produto(os)</label>
+                    <input type="text" id="campo-descricao" name="descricao-nota" class="form-control" placeholder="Escreva aqui a descrição referente os Produtos" required>
+                </div>
+                
+                <label for="nota_fiscal">Selecione a Nota Fiscal:</label>
+                <input type="file" name="nota_fiscal" id="nota_fiscal" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Fazer Upload</button>
+        </form>
+    </div>
+
+    <!-- Script do Bootstrap (necessário para funcionalidades JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

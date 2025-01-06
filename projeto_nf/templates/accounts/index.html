@@ -1,22 +1,56 @@
-<!-- accounts/templates/accounts/login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Index</title>
     {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="GET" action="{% url 'index' %}">
-            {% csrf_token %}
-            <h1>BEM VINDO</h1>
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Gestão de Notas Fiscais</h1>
 
+        <div class="row g-4">
+            <!-- Consultar Notas Fiscais -->
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Consultar Notas Fiscais</h5>
+                        <p class="card-text">Acesse e visualize as notas fiscais cadastradas no sistema.</p>
+                        <a href="{% url 'consultar_notas' %}" class="btn btn-primary w-100">Consultar</a>
+                    </div>
+                </div>
+            </div>
 
-        </form>
+            <!-- Fazer Upload de Novas Notas -->
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Fazer Upload</h5>
+                        <p class="card-text">Adicione novas notas fiscais ao sistema de forma rápida e segura.</p>
+                        <a href="{% url 'upload_notas' %}" class="btn btn-success w-100">Fazer Upload</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deletar Nota -->
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Deletar Nota</h5>
+                        <p class="card-text">Remova notas fiscais que não são mais necessárias.</p>
+                        <a href="{% url 'deletar_notas' %}" class="btn btn-danger w-100">Deletar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

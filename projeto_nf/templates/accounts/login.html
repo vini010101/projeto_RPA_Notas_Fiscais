@@ -1,4 +1,3 @@
-<!-- accounts/templates/accounts/login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,28 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            {% if messages %}
-         <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-             {% endfor %}
-                 </ul>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+            <h2 class="text-center mb-4">Login</h2>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <ul class="mb-0">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endif %}
-            <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
-            <input type="password" name="password" placeholder="Digite sua senha" required>
-            <button type="submit">Enviar</button>
-            <a href="{% url 'criar_usuario' %}" id="botao-usuario">Criar Um Novo Usuário</a>
-           
 
+                <div class="mb-3">
+                    <label for="campo-user" class="form-label">Nome de Usuário</label>
+                    <input type="text" id="campo-user" name="username" class="form-control" placeholder="Digite seu nome de usuário" required>
+                </div>
 
-        </form>
+                <div class="mb-3">
+                    <label for="campo-password" class="form-label">Senha</label>
+                    <input type="password" id="campo-password" name="password" class="form-control" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="btn btn-custom w-100">Enviar</button>
+
+                <div class="text-center mt-3">   
+                    <a href="{% url 'criar_usuario' %}" class="btn btn-secondary btn-custom">Criar um novo usuário</a>
+                </div>
+            </form>
+        </div>
     </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

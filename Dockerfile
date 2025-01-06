@@ -17,7 +17,15 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Se preferir instalar diretamente o psycopg2 via pip (caso não esteja no requirements.txt)
 RUN pip install psycopg2-binary
-
+RUN pip install pytesseract
+# Instalar as dependências do sistema para o Tesseract
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    libtesseract-dev \
+    && rm -rf /var/lib/apt/lists/*
+   
+RUN pip install pdf2image
+RUN apt-get update && apt-get install -y poppler-utils
 # Comando para rodar sua aplicação
 CMD ["python", "projeto_nf/manage.py", "runserver", "0.0.0.0:8000"]
 

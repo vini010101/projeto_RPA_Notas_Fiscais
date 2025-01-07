@@ -64,16 +64,15 @@ def sincronizar_usuario(sender, instance, created, **kwargs):
 
 
 class NotaFiscal(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relacionamento com o usuário
     cpf_cnpj = models.CharField(max_length=18)
     valor_nota = models.DecimalField(max_digits=10, decimal_places=2)
     data_nota = models.DateField()
     descricao_produto = models.TextField()
-    criado_em = models.DateTimeField(auto_now_add=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    arquivo = models.FileField(upload_to='notas_fiscais/', default='uploads/default.txt')
+    
     def __str__(self):
-        return f"Nota Fiscal - {self.cpf_cnpj} - {self.valor_nota} - {self.data_nota}"
-
+        return f"Nota {self.id} - CPF/CNPJ: {self.cpf_cnpj}"
 
 class UploadNotaFiscal(models.Model):
     id = models.AutoField(primary_key=True)

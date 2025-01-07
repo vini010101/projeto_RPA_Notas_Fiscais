@@ -1,1 +1,70 @@
-<h1>deletar Notas esta funcionando</h1>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Notas Fiscais</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Consultar Notas Fiscais</h2>
+
+        
+
+        <!-- Verifica se há notas fiscais para exibir -->
+        {% if notas_fiscais %}
+            <form action="/deletar_notas/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Iterando sobre todas as notas fiscais -->
+                {% for nota in notas_fiscais %}
+                    <div class="form-group">
+                        <label for="cpf_cnpj_{{ nota.id }}">CPF/CNPJ</label>
+                        <input type="text" class="form-control" id="cpf_cnpj_{{ nota.id }}" name="cpf_cnpj_{{ nota.id }}" value="{{ nota.cpf_cnpj }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor_nota_{{ nota.id }}">Valor da Nota</label>
+                        <input type="text" class="form-control" id="valor_nota_{{ nota.id }}" name="valor_nota_{{ nota.id }}" value="R${{ nota.valor_nota }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_nota_{{ nota.id }}">Data da Nota</label>
+                        <input type="text" class="form-control" id="data_nota_{{ nota.id }}" name="data_nota_{{ nota.id }}" value="{{ nota.data_nota }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao_produto_{{ nota.id }}">Descrição do Produto</label>
+                        <textarea class="form-control" id="descricao_produto_{{ nota.id }}" name="descricao_produto_{{ nota.id }}" rows="3" readonly>{{ nota.descricao_produto }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="arquivo_{{ nota.id }}">Arquivo</label>
+                        {% if nota.arquivo %}
+                            <a href="{{ nota.arquivo.url }}" class="btn btn-link" target="_blank">Abrir</a>
+                        {% else %}
+                            <span>Não disponível</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Botão de Deletar -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger" name="nota_id" value="{{ nota.id }}">Deletar Nota</button>
+                    </div>
+
+                    <hr>
+                {% endfor %}
+
+            </form>
+        {% else %}
+            <p class="alert alert-warning">Não há notas fiscais cadastradas.</p>
+        {% endif %}
+    </div>
+
+    <!-- Script do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

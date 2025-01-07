@@ -150,3 +150,6 @@ LOGGING = {
         },
     },
 }
+
+
+LOGIN_URL = '/login/'  # Substitua pelo caminho correto da sua view de login

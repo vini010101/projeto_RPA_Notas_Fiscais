@@ -1,7 +1,6 @@
-from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import NotaFiscal, UploadNotaFiscal
+from .models import NotaFiscal
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from .processar_nota import processar_nota_fiscal
@@ -9,30 +8,31 @@ import logging
 from django.contrib.auth.decorators import login_required
 
 
-# Função para criar um novo usuário
 def criar_usuario(request):
     if request.method == 'GET':
         return render(request, 'accounts/criar_usuario.html')
-    
+
     elif request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         # Verifica se o nome de usuário já existe no banco
         if User.objects.filter(username=username).exists():
-            return messages.error("Usuário já existe. Escolha outro nome de usuário.")
+            messages.error(request, "Usuário já existe. Escolha outro nome de usuário.")
+            return render(request, 'accounts/criar_usuario.html')  # Retorna o formulário com a mensagem de erro
         
         try:
             # Cria o usuário utilizando o método create_user (que faz o hash da senha)
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            return messages.success(f"Usuario criado com sucesso")
+            messages.success(request, 'Usuário criado com sucesso!')
+            return redirect('login')  # Redireciona para uma página de sucesso ou para a lista de usuários
         except Exception as e:
-            return messages.error(f"Erro ao criar o usuário, Tente Novamente mais tarde")
+            messages.error(request, f'Erro ao criar o usuário: {str(e)}')
+            return render(request, 'accounts/criar_usuario.html')  # Retorna o formulário com a mensagem de erro
 
 
 # Função para realizar o login do usuário
-@login_required
 def login(request):
     if request.method == 'GET':
         return render(request, 'accounts/login.html')
@@ -47,7 +47,7 @@ def login(request):
         if user is not None:
             # Se o usuário for autenticado e estiver ativo, faz login
             auth_login(request, user)
-            return redirect('index')  # Redireciona para a página principal
+            return redirect('servicos')  # Redireciona para a página principal
         else:
             # Se não for encontrado ou a senha estiver errada
             messages.error(request, 'Credenciais inválidas. Tente novamente.')  # Mensagem de erro
@@ -55,10 +55,22 @@ def login(request):
 
 
 # Função para renderizar a página principal
-@login_required
 def pagina_principal(request):
     if request.method == 'GET':
         return render(request, 'accounts/index.html')
+
+
+
+# Função para renderizar a página de orçamento
+def pagina_orcamento(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/orcamentos.html')
+
+
+# Função para renderizar a página de escolha dos serviços
+def pagina_servicos(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/servicos.html')
     
 
     # Função para renderizar a página de consulta de notas e para fazer requisisoes para o banco de dados
@@ -110,8 +122,8 @@ def upload_notas(request):
                 arquivo=arquivo
             )
             nota.save()
-            messages.success("Nota Fiscal cadastrada com sucesso!")
+            messages.success(request, "Nota Fiscal cadastrada com sucesso!")
         except Exception as e:
-            messages.error(f"Erro ao cadastrar a nota fiscal:{str(e)}")
+            messages.error(request, 'Erro ao cadastrar a nota fiscal:{str(e)}')
     
     return render(request, 'accounts/upload_notas.html')

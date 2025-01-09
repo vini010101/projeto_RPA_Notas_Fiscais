@@ -29,7 +29,7 @@ class Usuarios(models.Model):
     nome_usuario = models.CharField(max_length=100, unique=True)
     senha = models.CharField(max_length=100)
     data_criacao = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(default=timezone.now)
+    last_login = models.DateTimeField(null=True, blank=True)
     ativo = models.BooleanField(default=True)
 
     objects = UsuarioManager()

@@ -2,55 +2,135 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     {% load static %}
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Nexis Tec</title>
 </head>
 <body>
-    <div class="container py-5">
-        <h1 class="text-center mb-4">Gestão de Notas Fiscais</h1>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-sm sticky-top navbar-yellow text-shadow">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="">
+        <img src="{% static 'imagens/blocos/logo_nexis.webp' %}" alt="logo nexis Tec" class="logo-img">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                  <a class="nav-link text-dark font-weight-bold" href="">Início</a>
+              </li>
+              <li class="nav-item">
+                <a  href="{% url 'orcamento' %}" class="nav-link text-dark font-weight-bold">Formulário para orçamento</a>
+                <li class="nav-item">
+                  <a  href="{% url 'login' %}" class="nav-link text-dark font-weight-bold">Fazer login no sistema de Gerenciamnto de NF</a>
+                  
+              </li>
+            </li>
+          </ul>
+      </div>
+  </div>
+</nav>
 
-        <div class="row g-4">
-            <!-- Consultar Notas Fiscais -->
-            <div class="col-md-4">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Consultar Notas Fiscais</h5>
-                        <p class="card-text">Acesse e visualize as notas fiscais cadastradas no sistema.</p>
-                        <a href="{% url 'consultar_notas' %}" class="btn btn-primary w-100">Consultar</a>
-                    </div>
-                </div>
-            </div>
+<header></header>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{% static 'imagens/blocos/foto_carrosel01.jpg' %}" class="d-block w-100" alt="carrosel 1">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'imagens/blocos/foto_carrosel02.jpg' %}" class="d-block w-100" alt="carrosel 2">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'imagens/blocos/foto_carrosel03.jpg' %}" class="d-block w-100" alt="carrosel 3">
+          </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </a>
+  </div>
+</header>
 
-            <!-- Fazer Upload de Novas Notas -->
-            <div class="col-md-4">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Fazer Upload</h5>
-                        <p class="card-text">Adicione novas notas fiscais ao sistema de forma rápida e segura.</p>
-                        <a href="{% url 'upload_notas' %}" class="btn btn-success w-100">Fazer Upload</a>
-                    </div>
-                </div>
-            </div>
+  <main class="container-fluid bg-light">
+    <!-- Perfis dos Palestrantes -->
+    <section class="container mt-3 text-center">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 d-flex flex-column justify-content-between align-items-center mb-3">
+          <img src="{% static 'imagens/blocos/foto_aprsentacao.jpeg' %}" alt="foto Vinicius Moura" class="rounded-circle img-thumbnail w-200">
+          <h2 class="fw-normal">Vinicius Moura</h2>
+          <p>Desenvolvedor</p>
+          <p>Olá! Sou Vinicius, programador da Nexis Tec, e é um prazer tê-lo(a) aqui. Sou especializado no desenvolvimento web tanto no front-end quanto no back-end, sempre buscando transformar ideias em soluções digitais eficientes e impactantes.
 
-            <!-- Deletar Nota -->
-            <div class="col-md-4">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Deletar Nota</h5>
-                        <p class="card-text">Remova notas fiscais que não são mais necessárias.</p>
-                        <a href="{% url 'deletar_notas' %}" class="btn btn-danger w-100">Deletar</a>
-                    </div>
-                </div>
-            </div>
+            Na Nexis Tec, ofereceço serviços personalizados de criação de sistemas sob medida, garantindo que cada projeto atenda perfeitamente às necessidades específicas dos clientes. Seja para construir um site moderno e responsivo ou desenvolver um sistema completo para otimizar processos, estou pronto para entregar soluções de alta qualidade com a máxima eficiência.
+            
+            Se precisar de algo, ficarei feliz em ajudá-lo(a) a tornar seu projeto realidade. Juntos, podemos criar um futuro mais conectado e inteligente!</p>
         </div>
-    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <!-- Bloco de Informações -->
+    <hr class="my-5">
+
+    <section class="container">
+      <section class="row d-flex align-items-center">
+        <div class="col-md-7">
+          <h1>Por que a Nexis Tec é a Software House Ideal para realizar o seu Objetivo.</h1>
+          <h3>Expertise Técnica</h3>
+      <p>Eu sou um desenvolvedor especializado em desenvolvimento web, sempre atualizado com as últimas tecnologias para garantir soluções robustas e eficientes.</p>
+      
+      <h3>Soluções Personalizadas</h3>
+      <p>Eu trabalho em estreita colaboração com meus clientes, criando sistemas sob medida que atendem às suas necessidades específicas, seja um site responsivo ou um sistema complexo</p>
+      
+      <h3>Foco na Qualidade</h3>
+      <p>sigo rigorosos processos de desenvolvimento e testes, assegurando que cada projeto seja funcional, estável e seguro.</p>
+        </div>
+        
+        <div class="col-md-5">
+          <img src="{% static '/imagens/blocos/foto_dev01.jpg' %}" alt="Imagem Bloco 1" class="w-500 rounded shadow img-fluid"> <!-- Caminho corrigido -->
+        </div>
+      </section>
+
+      <hr class="my-5">
+
+      <section class="row d-flex align-items-center">
+        <div class="col-md-7 order-md-2">
+          <h1>Nossos Serviços</h1>
+          <h3>Desenvolvimento Web Personalizado</h3>
+          <p>Ofereço soluções completas de desenvolvimento web, desde a criação de sites responsivos até sistemas complexos sob medida. meu foco é garantir que cada projeto atenda às necessidades específicas dos clientes.</p>
+          
+          <h3>Consultoria em Tecnologia</h3>
+          <p>ofereço consultoria para otimizar processos e implementar as melhores práticas em tecnologia, ajudando sua empresa a se destacar no mercado.</p>
+          
+          <h3>Suporte Contínuo</h3>
+          <p>Ofereço suporte contínuo para garantir que as soluções funcionem perfeitamente, adaptando-se às novas demandas e desafios que surgem ao longo do tempo.</p>
+        </div>
+        <div class="col-md-5">
+          <img src="{% static '/imagens/blocos/foto_dev02.jpg' %}" alt="Imagem Bloco 3" class="w-500 rounded shadow img-fluid"> <!-- Caminho corrigido -->
+        </div>
+      </section>
+    </section>
+
+    <hr class="my-5">
+  </main>
+  <footer>
+    <p>
+      Desenvolvido por 
+      <a href="https://www.linkedin.com/in/vinicius-calebe-barbosa-de-moura-5700b6240/" target="_blank" rel="noopener noreferrer">
+        Vinicius Moura
+      </a> - 2024 | Todos os direitos reservados.
+    </p>
+  </footer>

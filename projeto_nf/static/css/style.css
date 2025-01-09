@@ -1,140 +1,226 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+/* Personalização com Bootstrap */
 
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
-}
-
-.card {
-    background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333333;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555555;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: 14px;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #999999;
-    outline: none;
-}
-
-
-
-.alert {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-
-.link-container  {
-    color: #555555;
-    text-decoration: none;
-    display: flex;
-    gap: 10px;
-
-}
-
-.link-container a:hover {
-    text-decoration: underline;
-}
-
-.btn-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.btn.secondary-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 14px;
-    color: #fff;
-    background-color: #6c757d;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.btn.secondary-btn:hover {
-    background-color: #5a6268;
-}
-
-.btn-custom {
-    background-color: #515558; /* Azul escuro */
-    color: #fff;
-    border: none;
-    font-size: 16px;
+/* Navbar */
+.navbar-yellow {
+    background-color: #b8b5b5d0;
+  }
+  
+  .navbar-yellow .nav-link {
     font-weight: bold;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-yellow .nav-link:hover {
+    color: #0056b3;
+  }
+  
+  /* Carousel */
+  .carousel-inner img {
+    max-height: 500px;
+    object-fit: cover;
+  }
+  
+  /* Header Text */
+  header h1 {
+    font-size: 2.5rem;
+    color: #444;
+  }
+  
+  .logo-img{
+
+
+    height: 110px; 
+    padding: 5px; 
+    border-radius: 5px; 
+    background-color: rgba(255, 255, 255, 0.5);
+
+ }
+ 
+ .logo-img:hover {
+     /* Aumenta o tamanho e a sombra ao passar o mouse */
+     transform: scale(1.1); /* Faz a imagem aumentar ligeiramente */
+     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
+
+
+  /* Perfis */
+  .rounded-circle {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .img-thumbnail {
+    border: 3px solid ;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /* Bloco de informações */
+  h1, h3 {
+    color: #444;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .w-500 {
+    max-width: 100%;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #b8b5b5d0;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  footer a {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  footer a:hover {
+    text-decoration: underline;
+  }
+  
+
+  /* Botão base */
+.btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+/* Estilo personalizado para btn-custom */
+.btn-custom {
+    background-color: #92979c; /* Cor de fundo azul */
+    color: white; /* Cor do texto */
+    font-weight: bold; /* Texto em negrito */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo ao passar o mouse */
 .btn-custom:hover {
-    background-color: #7f858b; /* Azul mais escuro */
-    transform: scale(1.05);
+    background-color: #92979c; /* Azul mais escuro */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Intensifica a sombra */
+    transform: translateY(-2px); /* Eleva o botão levemente */
 }
 
+/* Estilo ao clicar */
 .btn-custom:active {
-    background-color: #003f7f; /* Azul ainda mais escuro */
-    transform: scale(1);
+    background-color: #afb1b4; /* Azul ainda mais escuro */
+    transform: translateY(0); /* Remove a elevação */
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2); /* Sombra reduzida */
+}
+
+/* Tornar o botão 100% da largura */
+.w-100 {
+    width: 100%;
 }
 
 
-/* Estilizando o botão de envio */
-/* Alterando a cor do botão para cinza */
-button.btn.btn-primary {
-    background-color: #6c757d; /* Cinza */
-    border-color: #6c757d; /* Cinza */
-    color: white; /* Texto branco */
+
+
+/* Estilo geral da label customizada */
+.custom-file-label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #f8f9fa; /* Cor de fundo cinza claro */
+    border: 2px solid #ced4da; /* Borda cinza */
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500; /* Texto seminegrito */
+    color: #6c757d; /* Texto cinza escuro */
+    text-align: center;
+    cursor: pointer; /* Mostra o ponteiro de clique */
+    transition: all 0.3s ease; /* Animação para hover */
 }
 
-button.btn.btn-primary:hover {
-    background-color: #5a6268; /* Cinza escuro ao passar o mouse */
-    border-color: #545b62; /* Cinza mais escuro ao passar o mouse */
+/* Estilo ao passar o mouse sobre a label */
+.custom-file-label:hover {
+    background-color: #e9ecef; /* Fundo mais claro */
+    border-color: #80bdff; /* Borda azul claro */
+    color: #495057; /* Texto mais escuro */
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo ao focar no input de arquivo */
+.custom-file-input:focus + .custom-file-label {
+    border-color: #007bff; /* Azul mais forte */
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5); /* Efeito de foco */
+}
+
+/* Ocultar o input de arquivo */
+.custom-file-input {
+    display: none;
+}
+
+/* Estilo personalizado para o ID da label */
+#file-label {
+    margin-top: 10px; /* Espaço superior */
+    font-size: 14px; /* Tamanho menor do texto */
+}
+
+
+/* Estilo geral do botão */
+.custom-grey-btn {
+    background-color: #6c757d; /* Cinza padrão */
+    color: #fff; /* Texto branco */
+    border: none; /* Remove bordas padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho do texto */
+    font-weight: 600; /* Texto seminegrito */
+    padding: 10px 20px; /* Espaçamento interno */
+    transition: all 0.3s ease; /* Transição para hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    cursor: pointer; /* Cursor de clique */
+}
+
+/* Estilo ao passar o mouse sobre o botão */
+.custom-grey-btn:hover {
+    background-color: #5a6268; /* Cinza mais escuro */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+    transform: translateY(-2px); /* Leve elevação */
+}
+
+/* Estilo ao pressionar o botão */
+.custom-grey-btn:active {
+    background-color: #545b62; /* Cinza ainda mais escuro */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Reduz a sombra */
+    transform: translateY(0); /* Remove a elevação */
+}
+
+/* Estilo para botões desabilitados */
+.custom-grey-btn:disabled {
+    background-color: #adb5bd; /* Cinza claro */
+    cursor: not-allowed; /* Cursor de bloqueio */
+    opacity: 0.7; /* Reduz opacidade */
 }

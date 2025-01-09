@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% load static %}
+    <css><link rel="stylesheet" href="{% static 'css/style.css' %}"></css>
+    <title>formulario de Orçamento</title>
+    <style>
+        
+        .text-dark {
+            color: #000000d7 !important; /* Cor preta bem escura */
+        }
+
+        .font-weight-bold {
+            font-weight: bold !important; /* Aumenta o peso da fonte para deixar o texto mais escuro */
+        }
+        
+        .custom-navbar {
+            background-color: #f7f2cd; /* Cor de fundo */
+            padding-top: 10px; /* Ajuste conforme necessário */
+            padding-bottom: 10px; /* Ajuste conforme necessário */
+        }
+        .footer-yellow {
+            background-color: rgb(211, 198, 13); /* Cor de fundo do footer */
+        }
+        .navbar-brand img {
+            height: 100px; /* Ajuste a altura conforme necessário */
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.575); /* Fundo branco semitransparente para o logo */
+        }
+        /* Removendo o sublinhado dos links na barra de navegação */
+        .nav-link {
+            text-decoration: none !important; /* Remove o sublinhado */
+        }
+        .nav-link:hover {
+            text-decoration: underline; /* Se quiser sublinhado no hover, pode adicionar isso */
+        }
+        .social a {
+            color: inherit; /* Mantém a cor original */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+        .social a:hover {
+            color: #000000; /* Cor desejada no hover */
+        }
+
+        .orcamento {
+    max-width: 300px;
+    margin:  50px 0;     /* Adiciona espaço acima e centraliza horizontalmente */
+    padding: 10px;           
+    text-align: left;        
+}
+
+.orcamento h5 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.orcamento p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#form-orcamento label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#tempo {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.resultado {
+    font-weight: bold;
+    margin-top: 16px;
+    color: #333;
+}
+
+/* Estilos para a seção de orçamento */
+.orcamento {
+    max-width: 300px;
+    margin: 0 0 45px right;         /* Centraliza a seção e adiciona espaço acima */
+    padding: 10px;             /* Espaçamento interno */
+    text-align: left;          /* Alinha o conteúdo à esquerda */
+}
+
+.orcamento h5 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;       /* Espaçamento entre o título e os demais elementos */
+}
+
+.orcamento p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 15px;       /* Espaçamento entre parágrafos */
+}
+
+/* Estilo para o campo de entrada */
+#tempo {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;        /* Arredondamento das bordas */
+}
+
+/* Estilo para o botão calcular */
+#calcular-btn {
+    background-color: #6b6767cb;
+    color: #000;
+    padding: 10px 20px;
+    border: none;              /* Remove a borda */
+    border-radius: 5px;        /* Arredondamento das bordas */
+    cursor: pointer;           /* Muda o cursor para mãozinha */
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+/* Efeito hover para o botão calcular */
+#calcular-btn:hover {
+    background-color: #5a5656; /* Cor mais escura no hover */
+}
+
+/* Efeito de clique para o botão calcular */
+#calcular-btn:active {
+    background-color: #3e8e41; /* Cor de fundo mais escura ao clicar */
+    transform: translateY(2px); /* Simula botão pressionado */
+}
+
+/* Estilo para o resultado */
+.resultado {
+    font-weight: bold;
+    margin-top: 16px;
+    color: #333;
+}
+
+#contrato {
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+#contrato h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#contrato p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-left: 0; /* Remove qualquer margem à esquerda */
+    margin-bottom: 10px;
+}
+
+#contrato p.lead {
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm sticky-top navbar-yellow text-shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">
+                <img src="{% static '/imagens/blocos/logo_nexis.jpg' %}" alt="Nexis Tec Logo" style="height: 110px; padding: 5px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.5);">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link text-dark font-weight-bold">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-dark font-weight-bold">Formulário para orçamento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link text-dark font-weight-bold">Fazer login no sistema de Gerenciamnto de NF</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </nav>
+    
+    <main class="container bg-secondary-subtle">
+        <h1 class="text-center my-5">Formulário de orçamento</h1>
+        
+        <form id="formulario" action="/enviar_orcamento" method="post" enctype="multipart/form-data">
+            <!-- CAMPO DE TEXTO: NOME -->
+            <section class="col-md-3">
+                <div class="mb-3">
+                    <label for="nome" class="mb-2">Nome</label>
+                    <input type="text" name="nome" id="nome" class="form-control" required>
+                </div>
+            </section>
+
+            <!-- CAMPO DE DADOS PARA CONTATO -->
+    <div class="col-md-3">
+         <div class="mb-3">
+         <label for="fone" class="form-label">Primeiro telefone para contato</label>
+            <input type="tel" name="fone" id="fone" class="form-control" placeholder="Digite o primeiro telefone" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="fone2" class="form-label">(Opcional) Segundo telefone para contato</label>
+        <input type="tel" name="fone2" id="fone2" class="form-control" placeholder="Digite o segundo telefone">
+    </div>
+</div>
+            
+            
+            <!-- CAMPO E-MAil PARA CONTATO -->
+            <section class="col-md-3">
+                <div class="mb-3">
+                    <label for="email" class="mb-2">E-mail</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="email@email.com" required>
+                </div>
+            </section>
+            <!-- CAMPO COMENTÁRIO -->
+            <section class="row mb-2"> 
+                <div class="col-md-12">
+                    <label for="mensagem" class="mb-2">Descreva aqui detalhadamente como voce desejada que o seu projeto.</label>
+                    <textarea name="mensagem" id="mensagem" placeholder="Descreva aqui" class="form-control" required></textarea>
+                </div>
+            </section>
+
+
+            <section class="row mb-2">
+                <div class="col-md-5">
+                    <label for="imagens" class="mb-2">Anexe aqui imagens de referências de como você deseja o seu site ou sistema</label>
+                </div>
+                <!-- Div para o input do arquivo -->
+                <div class="custom-file">
+                    <!-- Label estilizada -->
+                    <label class="custom-file-label" id="file-label" for="imagens">
+                        Escolha o arquivo
+                        <!-- Input escondido, o clique é feito na label -->
+                        <input type="file" name="imagens" id="imagens" class="custom-file-input" accept=".jpg,.jpeg" multiple>
+                    </label>
+                </div>
+
+            </section>
+                    
+            
+            <!-- Campo oculto para armazenar o custo estimado -->
+                <input type="hidden" name="custo_estimado" id="custo_estimado">
+            <!-- Calculadora de Orçamento -->
+                <section class="orcamento">
+                    <h5>Calculadora de Orçamento</h5>
+                    <p>Digite abaixo em quantos dias você deseja receber o seu site ou sistema.</p>
+                    <div>
+                        <label for="tempo">Dias para entrega:</label>
+                        <input type="number" id="tempo" name="tempo" placeholder="Digite o número de dias" min="1" required>
+                        <button type="button" id="calcular-btn">Calcular</button>
+                        <p id="resultado" class="resultado">Custo estimado: R$ 0</p>
+                    </div>
+                    
+                </section>
+                
+                <!--
+                para quem estiver vendo essa gambirra vergonhosa 
+                por favor me perdoe eu fiquei tres dias acordado tentando fazer esse javascript funcionar em uma arquivo externo 
+                e não foi, me perdoem foi o jeito-->
+                <script>
+                    // Garantir que o script seja executado depois de todos os elementos estarem carregados
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Associar a função ao botão de cálculo
+                        document.getElementById("calcular-btn").addEventListener("click", function() {
+                            var tempo = document.getElementById("tempo").value; // Pega o valor inserido no campo de tempo
+                            var precoTotal = 1500; // Preço total para 30 dias
+                            var diasProjeto = 30;  // Total de dias do projeto (para calcular preço por dia)
+
+                            // Verifica se o valor inserido é válido
+                            if (tempo < 1 || isNaN(tempo)) {
+                                alert("Por favor, insira um número de dias válido.");
+                                return;
+                            }
+
+                            // Calcula o preço por dia
+                            var precoPorDia = precoTotal / diasProjeto;
+
+                            // Calcula o custo com base no número de dias escolhido
+                            var custoEstimado = precoPorDia * tempo;
+
+                            // Atualiza o resultado na página
+                            document.getElementById("resultado").innerText = "Custo estimado: R$ " + custoEstimado.toFixed(2);
+                        });
+                    });
+                </script>
+
+            <!-- INFO DE CONTRATO -->
+            <section class="p-5 mt-3" id="contrato">
+                <div class="container-fluid">
+                    <h1>Termos de Armazenamento de Dados</h1>
+                    <p class="lead">
+                        CONTRATO DE CONSENTIMENTO PARA ARMAZENAMENTO E TRATAMENTO DE DADOS PESSOAIS PARA ORÇAMENTO
+                    </p>
+                    <p>1. OBJETO</p>
+                    <p>
+                        1.1 A EMPRESA realizará um processo de orçamento para serviços solicitados pelo CLIENTE.
+                    </p>
+                    <p>
+                        1.2 O CLIENTE concorda em fornecer à EMPRESA informações e dados pessoais necessários para a elaboração e consideração do orçamento.
+                    </p>
+                    
+                    <p>2. AUTORIZAÇÃO DE USO DE DADOS</p>
+                    <p>
+                        2.1 O CLIENTE autoriza a EMPRESA a coletar, armazenar e utilizar os dados fornecidos para fins de elaboração do orçamento e acompanhamento do serviço.
+                    </p>
+                    <p>
+                        2.2 Os dados fornecidos pelo CLIENTE incluem, mas não se limitam a, nome, endereço, número de telefone, endereço de e-mail, descrição dos serviços desejados e outras informações relevantes para a elaboração do orçamento.
+                    </p>
+            
+                    <p>3. CONFIDENCIALIDADE E SEGURANÇA</p>
+                    <p>
+                        3.1 A EMPRESA compromete-se a tratar todas as informações fornecidas pelo CLIENTE de forma confidencial e a adotar medidas adequadas para proteger esses dados contra acessos não autorizados, vazamentos ou qualquer forma de tratamento inadequado.
+                    </p>
+                    <p>
+                        3.2 Os dados do CLIENTE serão acessíveis apenas aos responsáveis pelo orçamento e utilizados exclusivamente para fins relacionados à solicitação de orçamento.
+                    </p>
+            
+                    <p>4. PERÍODO DE RETENÇÃO DE DADOS</p>
+                    <p>
+                        4.1 Os dados fornecidos pelo CLIENTE serão retidos pela EMPRESA durante o período necessário para a elaboração do orçamento e, se aplicável, durante a execução do serviço.
+                    </p>
+                    <p>
+                        4.2 Caso o CLIENTE contrate os serviços, os dados fornecidos serão mantidos e geridos de acordo com as políticas internas da EMPRESA sobre gestão de dados pessoais.
+                    </p>
+            
+                    <p>5. DIREITOS DO CLIENTE</p>
+                    <p>
+                        5.1 O CLIENTE tem o direito de solicitar acesso, correção ou exclusão dos seus dados pessoais a qualquer momento, entrando em contato com a EMPRESA através dos canais de comunicação disponibilizados.
+                    </p>
+            
+                    <p>6. CONSIDERAÇÕES FINAIS</p>
+                    <p>
+                        6.1 Este contrato representa o entendimento completo entre as partes e substitui qualquer acordo ou entendimento anterior, oral ou escrito, relacionado ao objeto deste contrato.
+                    </p>
+                    <p>
+                        6.2 Ao assinar este contrato, o CLIENTE reconhece que leu e compreendeu as condições aqui estabelecidas, concordando voluntariamente em fornecer seus dados pessoais para a elaboração do orçamento pela EMPRESA.
+                    </p>
+                    
+                    <hr>
+                    <div class="form-check">
+                        <input type="checkbox" name="concordo" id="concordo" value="concordo" class="form-check-input">
+                        <label for="concordo" class="form-check-label">Concordo com os termos acima</label>
+                    </div>
+                </div>
+            </section>
+
+            <div class="col-md-6 mx-auto my-2">
+                <button type="submit" class="btn custom-grey-btn col-12">Enviar Formulário</button>
+            </div>
+        </form>
+    </main>
+    <script src="/projeto_nf/static/css/js/script.js" async></script>
+</body>
+
+</html>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% load static %}
     <css><link rel="stylesheet" href="{% static 'css/style.css' %}"></css>
+    <script src="{% static 'js/scrips.js' %}" async></script>
     <title>formulario de Orçamento</title>
     <style>
         
@@ -200,7 +201,8 @@
     <main class="container bg-secondary-subtle">
         <h1 class="text-center my-5">Formulário de orçamento</h1>
         
-        <form id="formulario" action="/enviar_orcamento" method="post" enctype="multipart/form-data">
+        <form id="formulario" action="{% url 'orcamento' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <!-- CAMPO DE TEXTO: NOME -->
             <section class="col-md-3">
                 <div class="mb-3">
@@ -367,7 +369,6 @@
             </div>
         </form>
     </main>
-    <script src="/projeto_nf/static/css/js/script.js" async></script>
 </body>
 
 </html>

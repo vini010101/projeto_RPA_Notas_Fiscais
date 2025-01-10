@@ -6,6 +6,39 @@ from django.contrib import messages
 from .processar_nota import processar_nota_fiscal
 import logging
 from django.contrib.auth.decorators import login_required
+from enviar_form import enviar_email
+from django.http import JsonResponse
+import os
+
+
+
+# Função para renderizar a página principal
+def pagina_principal(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/index.html')
+
+
+
+# Função para realizar o login do usuário
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/login.html')
+    
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Tenta autenticar o usuário
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Se o usuário for autenticado e estiver ativo, faz login
+            auth_login(request, user)
+            return redirect('servicos')  # Redireciona para a página principal
+        else:
+            # Se não for encontrado ou a senha estiver errada
+            messages.error(request, 'Credenciais inválidas. Tente novamente.')  # Mensagem de erro
+            return redirect('login')  # Redireciona para a página de login com erro
 
 
 def criar_usuario(request):
@@ -32,39 +65,52 @@ def criar_usuario(request):
             return render(request, 'accounts/criar_usuario.html')  # Retorna o formulário com a mensagem de erro
 
 
-# Função para realizar o login do usuário
-def login(request):
-    if request.method == 'GET':
-        return render(request, 'accounts/login.html')
-    
-    elif request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
 
-        # Tenta autenticar o usuário
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            # Se o usuário for autenticado e estiver ativo, faz login
-            auth_login(request, user)
-            return redirect('servicos')  # Redireciona para a página principal
-        else:
-            # Se não for encontrado ou a senha estiver errada
-            messages.error(request, 'Credenciais inválidas. Tente novamente.')  # Mensagem de erro
-            return redirect('login')  # Redireciona para a página de login com erro
-
-
-# Função para renderizar a página principal
-def pagina_principal(request):
-    if request.method == 'GET':
-        return render(request, 'accounts/index.html')
-
-
-
-# Função para renderizar a página de orçamento
 def pagina_orcamento(request):
     if request.method == 'GET':
         return render(request, 'accounts/orcamentos.html')
+    
+    if request.method == 'POST':
+        # Obtém os dados do formulário
+        nome = request.POST.get('nome')
+        fone = request.POST.get('fone')
+        fone2 = request.POST.get('fone2')
+        email = request.POST.get('email')
+        mensagem = request.POST.get('mensagem')
+        tempo = request.POST.get('tempo')
+        custo_estimado = request.POST.get('custo_estimado')
+        fotos = request.FILES.getlist('fotos')
+
+        # Diretório temporário para salvar os arquivos
+        temp_dir = 'temp_uploads'
+        os.makedirs(temp_dir, exist_ok=True)
+
+        # Salva os arquivos temporariamente
+        fotos_paths = []
+        for foto in fotos:
+            temp_path = os.path.join(temp_dir, foto.name)
+            with open(temp_path, 'wb+') as destination:
+                for chunk in foto.chunks():
+                    destination.write(chunk)
+            fotos_paths.append(temp_path)
+
+        # Envia o e-mail
+        try:
+            enviar_email(nome, fone, fone2, email, mensagem, tempo, custo_estimado, fotos_paths)
+            mensagem_status = "E-mail enviado com sucesso!"
+        except Exception as e:
+            mensagem_status = f"Erro ao enviar o e-mail: {e}"
+
+        # Remove os arquivos temporários
+        for foto_path in fotos_paths:
+            try:
+                os.remove(foto_path)
+            except Exception as e:
+                print(f"Erro ao excluir o arquivo {foto_path}: {e}")
+
+        return render(request, 'accounts/orcamentos.html', {'mensagem_status': mensagem_status})
+
+
 
 
 # Função para renderizar a página de escolha dos serviços

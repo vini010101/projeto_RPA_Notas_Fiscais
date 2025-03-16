@@ -77,9 +77,3 @@ Abra um Pull Request 🚀
 Este projeto está sob a licença MIT. Sinta-se à vontade para usá-lo e melhorá-lo!
 
 💡 Dúvidas ou sugestões? Me chame no LinkedIn ou abra uma issue! 🚀
-
-csharp
-Copiar
-Editar
-
-Esse README é profissional, bem estruturado e fornece todas as informações necessárias para rodar o projeto. O que achou? Quer adicionar mais alguma coisa? 😃
